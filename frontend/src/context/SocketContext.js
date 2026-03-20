@@ -12,11 +12,9 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('ssn_token');
     // Only connect if we have both a user object and a stored token.
-    if (user && token) {
-      // Connect to backend Socket.IO server.
-      const isProd = process.env.NODE_ENV === 'production';
-      const socketUrl = process.env.REACT_APP_API_URL?.replace('/api', '') || 
-                        (isProd ? 'https://social-sticky.onrender.com' : 'http://localhost:5001');
+      // Connect to backend Socket.IO server on Render
+      const isVercel = window.location.hostname.includes('vercel.app');
+      const socketUrl = (process.env.REACT_APP_API_URL || (isVercel ? 'https://social-sticky.onrender.com' : 'http://localhost:5001')).replace('/api', '');
       socketRef.current = io(socketUrl, { auth: { token }, transports: ['websocket'] });
 
       // Helpful debug: log connect errors to the console so we can see reasons like auth failures.

@@ -1,8 +1,22 @@
 import axios from 'axios';
 
-// For REST API calls, use a relative path. Vercel's vercel.json rewrites 
-// will proxy these to the actual backend on Render, avoiding 405/CORS issues.
-const baseUrl = process.env.REACT_APP_API_URL || '/api';
+// Determine the correct API base URL
+// 1. Prioritize environment variable (set this in Vercel Dashboard)
+// 2. Fallback to hardcoded Render URL for production if on a Vercel domain
+// 3. Use relative '/api' for local development
+const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+let baseUrl = process.env.REACT_APP_API_URL || (isVercel ? 'https://social-sticky.onrender.com' : '');
+
+// Ensure it ends with /api if not already present
+if (!baseUrl.endsWith('/api')) {
+  baseUrl = baseUrl.endsWith('/') ? `${baseUrl}api` : `${baseUrl}/api`;
+}
+
+// In local dev, if baseUrl is just '/api', make sure it's relative
+if (!isVercel && !process.env.REACT_APP_API_URL) {
+  baseUrl = '/api';
+}
+
 const api = axios.create({ baseURL: baseUrl });
 
 // Diagnostic: Log the base URL
