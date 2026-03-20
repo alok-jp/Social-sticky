@@ -24,6 +24,12 @@ const io = new Server(server, {
 // Make io available to controllers via a small accessor module
 require('./config/io').init(io);
 
+// Request Logger for Debugging
+app.use((req, res, next) => {
+  console.log(`📡 ${req.method} ${req.url} [Origin: ${req.headers.origin}]`);
+  next();
+});
+
 const allowedOrigins = [
   'http://localhost:3000',
   process.env.CLIENT_URL
