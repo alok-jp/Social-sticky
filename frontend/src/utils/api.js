@@ -1,17 +1,22 @@
 import axios from 'axios';
 
-const isProd = process.env.NODE_ENV === 'production';
-let baseUrl = process.env.REACT_APP_API_URL || (isProd ? 'https://social-sticky.onrender.com' : '');
+const isVercel = window.location.hostname.endsWith('.vercel.app') || window.location.hostname.includes('social-sticky');
+let baseUrl = process.env.REACT_APP_API_URL || (isVercel ? 'https://social-sticky.onrender.com' : '');
 
 // Ensure it ends with /api if not already present
 if (!baseUrl.endsWith('/api')) {
   baseUrl = baseUrl.endsWith('/') ? `${baseUrl}api` : `${baseUrl}/api`;
 }
 
+// In local dev, if baseUrl is just '/api', make sure it's relative
+if (!isVercel && !process.env.REACT_APP_API_URL) {
+  baseUrl = '/api';
+}
+
 const api = axios.create({ baseURL: baseUrl });
 
-// Diagnostic: Log the base URL in production to help debug connectivity
-if (isProd) console.log('🚀 API Base URL:', api.defaults.baseURL);
+// Diagnostic: Log the base URL to help debug connectivity
+console.log('🚀 API Base URL Initialized:', api.defaults.baseURL);
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ssn_token');
