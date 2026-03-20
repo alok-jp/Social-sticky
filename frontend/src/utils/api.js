@@ -1,22 +1,12 @@
 import axios from 'axios';
 
-const isVercel = window.location.hostname.endsWith('.vercel.app') || window.location.hostname.includes('social-sticky');
-let baseUrl = process.env.REACT_APP_API_URL || (isVercel ? 'https://social-sticky.onrender.com' : '');
-
-// Ensure it ends with /api if not already present
-if (!baseUrl.endsWith('/api')) {
-  baseUrl = baseUrl.endsWith('/') ? `${baseUrl}api` : `${baseUrl}/api`;
-}
-
-// In local dev, if baseUrl is just '/api', make sure it's relative
-if (!isVercel && !process.env.REACT_APP_API_URL) {
-  baseUrl = '/api';
-}
-
+// For REST API calls, use a relative path. Vercel's vercel.json rewrites 
+// will proxy these to the actual backend on Render, avoiding 405/CORS issues.
+const baseUrl = process.env.REACT_APP_API_URL || '/api';
 const api = axios.create({ baseURL: baseUrl });
 
-// Diagnostic: Log the base URL to help debug connectivity
-console.log('🚀 API Base URL Initialized:', api.defaults.baseURL);
+// Diagnostic: Log the base URL
+console.log('🚀 API Base URL:', api.defaults.baseURL);
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ssn_token');
