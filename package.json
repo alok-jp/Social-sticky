@@ -1,0 +1,15 @@
+{
+  "name": "social-sticky",
+  "version": "1.0.0",
+  "private": true,
+  "description": "> **The ultimate gamified productivity engine for the elite. Plan, Study, and Conquer together.**",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install --prefix backend && npm install --prefix frontend",
+    "build-frontend": "npm install --prefix frontend && npm run build --prefix frontend",
+    "vercel-build": "npm run build-frontend"
+  }
+}

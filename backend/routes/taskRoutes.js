@@ -1,0 +1,14 @@
+const router = require('express').Router();
+const c = require('../controllers/taskController');
+const { protect } = require('../middleware/auth');
+router.use(protect);
+router.post('/', c.createTask);
+router.get('/me', c.getMyTasks);
+router.get('/group/:groupId', c.getGroupTasks);
+router.get('/group/:groupId/activity', c.getGroupActivity);
+router.patch('/:id/toggle', c.toggleTask);
+router.patch('/:id/status', c.updateTaskStatus);
+router.post('/:id/react', c.reactToTask);
+router.put('/:id', c.updateTask);
+router.delete('/:id', c.deleteTask);
+module.exports = router;

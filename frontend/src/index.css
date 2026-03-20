@@ -1,0 +1,331 @@
+:root {
+  --primary-glow: #FFD700;
+  --secondary-glow: #FF8C00;
+  --bg-dark: #080810;
+  --surface-bg: #0E0E1C;
+  --surface-2: #13132A;
+  --text-main: #FFFFFF;
+  --text-muted: #6E6E82;
+  --accent-neon: #00F2FF;
+  --accent-hot: #FF0055;
+  --accent-blue: #38BDF8;
+  --border-glass: rgba(255, 255, 255, 0.07);
+  --border-gold: rgba(255, 215, 0, 0.15);
+  --shadow-main: 0 16px 48px rgba(0,0,0,0.5);
+  --shadow-glow-gold: 0 0 40px rgba(255,215,0,0.08);
+  --brand-blue: #4A90E2;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .chad-font {
+  font-family: 'Fredoka One', cursive;
+  letter-spacing: -0.5px;
+}
+
+/* ── Background ── */
+.animated-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,215,0,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(56,189,248,0.04) 0%, transparent 60%),
+    #080810;
+  min-height: 100vh;
+}
+
+/* ── Glass Cards ── */
+.glass-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-main);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 215, 0, 0.18);
+  box-shadow: var(--shadow-main), 0 0 30px rgba(255,215,0,0.06);
+  transform: translateY(-3px);
+}
+
+/* ── Buttons ── */
+.btn {
+  border: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  font-size: clamp(11px, 2.5vw, 12px);
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  min-height: 44px; /* Essential for mobile touch target accessibility */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-yellow {
+  background: linear-gradient(135deg, #FFD700 0%, #FF9500 100%);
+  color: #000;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.btn-yellow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 215, 0, 0.45);
+}
+
+.btn-yellow:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--radius-md);
+}
+
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.14);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--brand-blue);
+  color: white;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(74,144,226,0.3);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,215,0,0.3); }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.97); }
+  50%       { opacity: 1;   transform: scale(1.03); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 900px) {
+  /* Dashboard hero grid: stack */
+  div[style*="gridTemplateColumns: minmax(0,1.4fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Profile 2-col → 1-col handled via .profile-grid class in component */
+}
+
+@media (max-width: 860px) {
+  /* Reduce padding on main containers */
+  div[style*="maxWidth:1200"], div[style*="maxWidth:1240"], div[style*="maxWidth:1100"], div[style*="maxWidth:1000"] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  /* Page title scaling */
+  h1 { font-size: clamp(24px, 7vw, 36px) !important; }
+  h2 { font-size: clamp(20px, 6vw, 28px) !important; }
+
+  /* Touch safety */
+  button, select, input, .pill { cursor: pointer; }
+  .btn, button, a { min-height: 44px; }
+
+  /* Glass cards: flexible and prevent blowouts */
+  .glass-card { 
+    padding: 18px 16px !important; 
+    border-radius: 18px !important; 
+    max-width: 100vw;
+  }
+
+  /* Disable hover lift on touch devices to avoid stuck states */
+  .glass-card:hover { transform: none !important; }
+
+  /* Tabs & Action buttons flex wrap safety */
+  div[style*="display: 'flex'"], div[style*="display:'flex'"] { 
+    flex-wrap: wrap; 
+  }
+
+  /* Buttons: full-width in small containers */
+  .btn { font-size: 11px !important; padding: 10px 14px !important; }
+
+  /* Tabs: smaller text */
+  button[style*="underline"] { font-size: 11px !important; padding: 10px 14px !important; }
+
+  /* Group / Friend card grids: single col */
+  div[style*="minmax(280px"], div[style*="minmax(250px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Leaderboard stat buttons */
+  div[style*="aura"][style*="streak"] { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  /* Deep mobile layout adjustments */
+  body { font-size: 14px; }
+  
+  /* Form elements: ensure proper wrapping and avoid horizontal overflow */
+  input, textarea { font-size: 16px !important; } /* Prevents iOS auto-zoom on forms */
+
+  /* Identity card avatar area: stack vertically on extreme small */
+  div[style*="alignItems:'center'"][style*="gap: 'clamp"], .profile-avatar-row { 
+    flex-direction: column; align-items: flex-start !important; 
+  }
+
+  /* Kanban + Main Layouts: Force full wrap */
+  div[class*="kanban"], div[style*="minmax(240px"], div[style*="minmax(220px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Hero welcome card: tighter padding for tiny viewports (iPhone SE / 320px) */
+  div[style*="padding: '36px 36px"], div[style*="padding: 36px 36px"] { 
+    padding: 24px 20px !important; 
+  }
+}
+
+@media (max-width: 340px) {
+  /* Ultra-small phones (e.g. 320px) */
+  h1 { font-size: 22px !important; letter-spacing: -0.5px !important; }
+  .btn { width: 100% !important; margin-bottom: 6px; } /* Expand buttons full width on tiny screens */
+  div[style*="flexDirection: 'row'"] { flex-direction: column !important; }
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-4px) rotate(-1deg); }
+  50%  { transform: translateX(4px) rotate(1deg); }
+  75%  { transform: translateX(-4px) rotate(-1deg); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.page-enter  { animation: fadeIn 0.45s cubic-bezier(0.4,0,0.2,1) forwards; }
+.scale-enter { animation: scaleIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+/* ── Inputs ── */
+input, textarea, select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-glass);
+  color: #fff;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: rgba(255,215,0,0.5);
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.07);
+}
+
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2); font-weight: 600; }
+
+textarea { resize: vertical; }
+select   { cursor: pointer; }
+option   { background: var(--surface-bg); color: #fff; }
+
+/* ── Utility ── */
+.aura-glow {
+  color: var(--primary-glow);
+  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+  font-weight: 950;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light-bg { background-color: #FFFFFF !important; color: #1A1A2E !important; }
+.dark-bg  { background-color: var(--bg-dark) !important; color: var(--text-main) !important; }
+
+.text-contrast-high { color: rgba(255, 255, 255, 0.95); }
+.text-contrast-low  { color: var(--text-muted); }
+.shadow-premium     { box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
+
+/* ── Phase 12+ card hover micro-interactions ── */
+.sticky-note-hover:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35) !important;
+  z-index: 10;
+}
+
+.icon-hover:hover { opacity: 1 !important; transform: scale(1.2); }
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  border: none;
+  margin: 20px 0;
+}
+
+/* ── Pill badge ── */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 10px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.6);
+}
