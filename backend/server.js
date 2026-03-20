@@ -26,13 +26,15 @@ require('./config/io').init(io);
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://social-sticky-9ufutftzc-alok-vermas-projects-2b98bf26.vercel.app',
   process.env.CLIENT_URL
 ].filter(Boolean);
 
 app.use(cors({ 
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Check if origin is local, in allowed list, or matches the user's vercel pattern
+    if (!origin || 
+        allowedOrigins.includes(origin) || 
+        origin.endsWith('.vercel.app')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
