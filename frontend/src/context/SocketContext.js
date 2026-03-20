@@ -14,7 +14,9 @@ export const SocketProvider = ({ children }) => {
     // Only connect if we have both a user object and a stored token.
     if (user && token) {
       // Connect to backend Socket.IO server.
-      const socketUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const isProd = process.env.NODE_ENV === 'production';
+      const socketUrl = process.env.REACT_APP_API_URL?.replace('/api', '') || 
+                        (isProd ? 'https://social-sticky.onrender.com' : 'http://localhost:5001');
       socketRef.current = io(socketUrl, { auth: { token }, transports: ['websocket'] });
 
       // Helpful debug: log connect errors to the console so we can see reasons like auth failures.
