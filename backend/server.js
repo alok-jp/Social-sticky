@@ -24,7 +24,22 @@ const io = new Server(server, {
 // Make io available to controllers via a small accessor module
 require('./config/io').init(io);
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true }));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://social-sticky-9ufutftzc-alok-vermas-projects-2b98bf26.vercel.app',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
+app.use(cors({ 
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }, 
+  credentials: true 
+}));
 app.use(express.json());
 
 // Routes

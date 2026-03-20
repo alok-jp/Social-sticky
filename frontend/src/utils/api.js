@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: process.env.REACT_APP_API_URL || '/api' });
+const isProd = process.env.NODE_ENV === 'production';
+const api = axios.create({ 
+  baseURL: process.env.REACT_APP_API_URL || (isProd ? 'https://social-sticky.onrender.com/api' : '/api') 
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ssn_token');
