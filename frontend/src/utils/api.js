@@ -5,6 +5,9 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || (isProd ? 'https://social-sticky.onrender.com/api' : '/api') 
 });
 
+// Diagnostic: Log the base URL in production to help debug connectivity
+if (isProd) console.log('🚀 API Base URL:', api.defaults.baseURL);
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ssn_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
