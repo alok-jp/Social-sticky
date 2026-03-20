@@ -1,0 +1,2 @@
+# Social-sticky
+🗿 Social Sticky Notes — A high-performance, gamified MERN productivity ecosystem built for the elite. Features Aura progression, real-time tactical collaboration, and deep-work Focus Mode. Mono-repo ready for one-click Vercel deployment. Built Different. ⚔️🔥
